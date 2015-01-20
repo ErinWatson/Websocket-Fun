@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>Simple Web Socket</title>
+		<link rel="stylesheet" href="{{ static_url("websocket.css") }}" type="text/css"/>
+	</head>
+	<body>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+		<script src="{{ static_url("websocket.js") }}" type="text/javascript"></script>
+		<div id="wrapper">
+			Message Out: <input type="text" id="message_out" value="I'm the browser!" size="50"><br>
+			<button onclick="clientToWaiters()">Send Message</button><br><br>
+			Message In: <input type="text" id="message_in" size="50"><br>
+		</div>
+	</body>
+</html>
