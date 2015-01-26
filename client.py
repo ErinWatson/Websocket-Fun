@@ -19,8 +19,6 @@
 from autobahn.twisted.websocket import WebSocketClientProtocol, \
                                        WebSocketClientFactory
 
-
-
 class MyClientProtocol(WebSocketClientProtocol):
 
    def onConnect(self, response):
@@ -30,6 +28,7 @@ class MyClientProtocol(WebSocketClientProtocol):
       print("WebSocket connection open.")
 
       def hello():
+         #self.sendMessage("I'm the embedded device!")
          self.sendMessage(u"I'm the embedded device!".encode('utf8'))
          #self.sendMessage(b"\x00\x01\x03\x04", isBinary = True)
          self.factory.reactor.callLater(5, hello)
@@ -60,5 +59,5 @@ if __name__ == '__main__':
    factory = WebSocketClientFactory("ws://localhost:9090", debug = False)
    factory.protocol = MyClientProtocol
 
-   reactor.connectTCP("127.0.0.1", 9090, factory)
+   reactor.connectTCP("10.0.0.15", 9090, factory)
    reactor.run()

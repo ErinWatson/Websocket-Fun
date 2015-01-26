@@ -7,6 +7,58 @@
 #include <netinet/in.h>
 #include <netdb.h> 
 
+
+/*
+ws api
+struct ws
+ws* ws_init()
+	calls hw_init(function pointer)
+	register_message_received
+	mallocs memory for ws struct
+	returns pointer to ws struct
+
+ws_delete()
+	calls disconnect (if not already done)
+	frees ws struct
+ws_connect()
+	calls hw_write...
+
+ws_disconnect
+	calls hw disconnect
+ws_send
+	calls hw_write(GET http...)
+
+ws_start_read(ws_message_received function pointer)
+	// checks for connection first
+	calls hw_start_read(ws_message_received)
+	
+ws_message_received(char* message)
+_____________________________________
+
+hw api
+
+int hw_init
+	linux - socket setup
+	-1 for error
+
+int hw_write(char* )
+	returns num chars written
+	-1 for error
+
+hw_disconnect
+	-1 for error
+
+hw_start_read(callback)
+	for wifi module, register fnction pointer for interrupt
+	linux -> start reading call in another thread & register callback
+		new thread
+			while(1)
+				string = read
+				call function pointer(string)
+				?thread safety issues?
+*/
+
+
 void error(const char *msg)
 {
 	perror(msg);
@@ -63,7 +115,7 @@ int main(int argc, char *argv[])
 		 error("ERROR writing to socket");
 	}
 	while(1) {
-		bzero(buffer,256);
+		bzero(buffer,255);
 		n = read(sockfd,buffer,255);
 		if (n < 0) {
 			 error("ERROR reading from socket");
